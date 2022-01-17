@@ -34,3 +34,5 @@ build/
 .vscode/
 /mvnw.cmd
 /mvnw
+/github_rsa
+/github_rsa.pub
