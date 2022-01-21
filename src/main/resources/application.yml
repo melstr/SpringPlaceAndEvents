@@ -10,6 +10,10 @@ spring:
   jackson:
     time-zone: UTC
 server:
+  error:
+    include-message: always
+    include-exception: true
+    include-binding-errors: always
   port: '8080'
 servlet:
   context-path: /api/v1.0

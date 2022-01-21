@@ -43,7 +43,7 @@ public class UserController {
                 .orElseThrow();
     }
 
-    @GetMapping
+    @GetMapping("")
     public List<UserInfoDto> getAll(){
         return Optional.of(userService.getAll())
                 .map(userMapper::toInfoDtoList)
