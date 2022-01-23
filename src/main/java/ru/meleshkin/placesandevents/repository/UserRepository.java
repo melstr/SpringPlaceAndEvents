@@ -2,11 +2,13 @@ package ru.meleshkin.placesandevents.repository;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 import ru.meleshkin.placesandevents.domain.entity.User;
 
 import java.util.UUID;
 
-@Repository
+/**
+ * @author Meleshkin Alexandr
+ * @since 23.01.2022
+ */
 public interface UserRepository extends JpaRepository<User, UUID> {
 }

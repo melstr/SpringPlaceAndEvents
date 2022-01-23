@@ -3,6 +3,7 @@ package ru.meleshkin.placesandevents.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.meleshkin.placesandevents.domain.entity.User;
+import ru.meleshkin.placesandevents.exception.UserNotFoundException;
 import ru.meleshkin.placesandevents.mapper.UserMapper;
 import ru.meleshkin.placesandevents.repository.UserRepository;
 import ru.meleshkin.placesandevents.service.UserService;
@@ -24,12 +25,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User get(UUID id) {
-        return userRepository.findById(id).orElseThrow();
+        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
 
     @Override
     public List<User> getAll() {
-        return new ArrayList<User>(userRepository.findAll());
+
+        return new ArrayList<>(userRepository.findAll());
     }
 
     @Override

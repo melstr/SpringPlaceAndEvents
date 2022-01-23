@@ -5,14 +5,18 @@ import ru.meleshkin.placesandevents.domain.entity.User;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * @author Meleshkin Alexandr
+ * @since 23.01.2022
+ */
 public interface UserService {
-    public User get(UUID id);
+    User get(UUID id);
 
-    public List<User> getAll();
+    List<User> getAll();
 
-    public User create(User user);
+    User create(User user);
 
-    public User update(UUID id, User user);
+    User update(UUID id, User user);
 
-    public void delete(UUID id);
+    void delete(UUID id);
 }

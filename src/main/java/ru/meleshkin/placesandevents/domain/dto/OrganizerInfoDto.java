@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
-import ru.meleshkin.placesandevents.domain.enums.UserType;
+import ru.meleshkin.placesandevents.domain.enums.OrganizerRole;
 
 import java.util.UUID;
 
@@ -12,18 +12,15 @@ import static lombok.AccessLevel.PUBLIC;
 
 /**
  * @author Meleshkin Alexandr
- * @since 17.01.2022
+ * @since 22.01.2022
  */
 @Value
 @Builder
 @Jacksonized
 @AllArgsConstructor(access = PUBLIC)
-public class UserDto {
-    private UUID id;
-    private String login;
-    private String password;
-    private String name;
-    private UserType type;
-    private Integer age;
-    private String email;
+public class OrganizerInfoDto {
+    UUID id;
+    UUID userId;
+    UUID organizationId;
+    OrganizerRole role;
 }

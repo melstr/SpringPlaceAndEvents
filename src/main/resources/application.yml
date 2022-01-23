@@ -14,9 +14,10 @@ server:
     include-message: always
     include-exception: true
     include-binding-errors: always
+    include-stacktrace: never
   port: '8080'
 servlet:
   context-path: /api/v1.0
 logging:
   level:
-    web: '''DEBUG'''
+    web: debug
