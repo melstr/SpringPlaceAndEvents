@@ -22,7 +22,7 @@ import static javax.persistence.FetchType.LAZY;
 @Table(name = "organizers")
 public class Organizer extends BaseEntity {
 
-    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     User user;
 
