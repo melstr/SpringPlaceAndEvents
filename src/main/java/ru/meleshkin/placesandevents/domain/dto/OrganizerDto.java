@@ -14,13 +14,13 @@ import static lombok.AccessLevel.PUBLIC;
  * @author Meleshkin Alexandr
  * @since 22.01.2022
  */
-
 @Value
 @Builder
 @Jacksonized
 @AllArgsConstructor(access = PUBLIC)
 public class OrganizerDto {
+    UUID id;
     UUID userId;
-    OrganizerRole role;
     UUID organizationId;
+    OrganizerRole role;
 }

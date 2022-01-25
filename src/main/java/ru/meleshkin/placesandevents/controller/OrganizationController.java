@@ -2,8 +2,8 @@ package ru.meleshkin.placesandevents.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import ru.meleshkin.placesandevents.domain.dto.OrganizationCreateDto;
 import ru.meleshkin.placesandevents.domain.dto.OrganizationDto;
-import ru.meleshkin.placesandevents.domain.dto.OrganizationInfoDto;
 import ru.meleshkin.placesandevents.mapper.OrganizationMapper;
 import ru.meleshkin.placesandevents.service.OrganizationService;
 
@@ -25,40 +25,46 @@ public class OrganizationController {
     private final OrganizationMapper organizationMapper;
 
     @PostMapping
-    public OrganizationDto create(@RequestBody OrganizationDto organizationCreateDto){
+    public OrganizationCreateDto create(@RequestBody OrganizationCreateDto organizationCreateDto){
+
         return Optional.ofNullable(organizationCreateDto)
-                .map(organizationMapper::fromDto)
+                .map(organizationMapper::fromCreateDto)
                 .map(organizationService::create)
-                .map(organizationMapper::toDto)
+                .map(organizationMapper::toCreateDto)
                 .orElseThrow();
     }
 
     @GetMapping("/{organizationId}")
-    public OrganizationInfoDto get(@PathVariable(name = "organizationId") UUID organizationId){
+    public OrganizationDto get(@PathVariable(name = "organizationId") UUID organizationId){
+
         return Optional.ofNullable(organizationId)
                 .map(organizationService::get)
-                .map(organizationMapper::toInfoDto)
+                .map(organizationMapper::toDto)
                 .orElseThrow();
     }
 
     @GetMapping()
-    public List<OrganizationInfoDto> getAll(){
+    public List<OrganizationDto> getAll(){
+
         return Optional.of(organizationService.getAll())
-                .map(organizationMapper::toListInfoDto)
+                .map(organizationMapper::toListDto)
                 .orElseThrow();
     }
+
     @PatchMapping("/{organizationId}")
-    public OrganizationDto update(@PathVariable(name = "organizationId") UUID id, @RequestBody OrganizationDto organizationDto){
-        return Optional.ofNullable(organizationDto)
-                .map(organizationMapper::fromDto)
+    public OrganizationCreateDto update(@PathVariable(name = "organizationId") UUID id, @RequestBody OrganizationCreateDto organizationCreateDto){
+
+        return Optional.ofNullable(organizationCreateDto)
+                .map(organizationMapper::fromCreateDto)
                 .map(organization -> organizationService.update(id, organization))
-                .map(organizationMapper::toDto)
+                .map(organizationMapper::toCreateDto)
                 .orElseThrow();
     }
 
     @DeleteMapping
     @ResponseStatus(value = NO_CONTENT)
     public void delete(@RequestBody UUID id){
+
         organizationService.delete(id);
     }
 }

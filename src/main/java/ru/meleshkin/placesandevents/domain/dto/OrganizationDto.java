@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
 
+import java.util.Date;
+import java.util.UUID;
+
 import static lombok.AccessLevel.PUBLIC;
 
 /**
@@ -17,6 +20,11 @@ import static lombok.AccessLevel.PUBLIC;
 @AllArgsConstructor(access = PUBLIC)
 public class OrganizationDto {
 
+    private UUID id;
+    private Integer version;
+    private Date createdAt;
+    private Date modifiedAt;
     private String name;
     private String description;
+
 }

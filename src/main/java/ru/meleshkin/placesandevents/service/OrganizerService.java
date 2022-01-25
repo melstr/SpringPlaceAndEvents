@@ -17,7 +17,7 @@ public interface OrganizerService {
 
     List<Organizer> getAll();
 
-    Organizer get();
+    Organizer get(UUID id);
 
     Organizer update(UUID id, Organizer organizer);
 
