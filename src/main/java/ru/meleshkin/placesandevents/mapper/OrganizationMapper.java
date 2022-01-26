@@ -16,6 +16,7 @@ import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
 public interface OrganizationMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "modifiedAt", ignore = true)
+    @Mapping(target = "organizers", ignore = true)
     Organization fromCreateDto(OrganizationCreateDto organizationCreateDto);
 
     OrganizationCreateDto toCreateDto(Organization organization);

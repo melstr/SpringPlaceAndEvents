@@ -1,7 +1,7 @@
 package ru.meleshkin.placesandevents.service;
 
 import ru.meleshkin.placesandevents.domain.entity.Organization;
-import ru.meleshkin.placesandevents.domain.entity.User;
+import ru.meleshkin.placesandevents.domain.entity.Organizer;
 
 import java.util.List;
 import java.util.UUID;
@@ -20,5 +20,6 @@ public interface OrganizationService {
 
     public void delete(UUID id);
 
-    public List<Organization> getAll();
+    public List<Organization> getAllOrganizations();
+
 }

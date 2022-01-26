@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: 'jdbc:postgresql://localhost:5432/places_and_events'
+    url: 'jdbc:postgresql://localhost:5432/places_and_events1'
     username: postgres
     password: password
   jpa:
@@ -9,6 +9,8 @@ spring:
       ddl-auto: validate
   jackson:
     time-zone: UTC
+  liquibase:
+    change-log: classpath:db/changelog/changelog.xml
 server:
   error:
     include-message: always

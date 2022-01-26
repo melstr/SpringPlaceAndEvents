@@ -2,6 +2,7 @@ package ru.meleshkin.placesandevents.mapper;
 
 import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.meleshkin.placesandevents.domain.dto.OrganizerAssignDto;
 import ru.meleshkin.placesandevents.domain.dto.OrganizerCreateDto;
 import ru.meleshkin.placesandevents.domain.dto.OrganizerDto;
 import ru.meleshkin.placesandevents.domain.entity.Organizer;
@@ -50,6 +51,12 @@ public abstract class OrganizerMapper {
     public abstract OrganizerDto toDto(Organizer organizer);
 
     public abstract List<OrganizerDto> toDtoList(List<Organizer> organizers);
+
+    @Mappings({
+            @Mapping(target = "user", expression = "java(userRepository.findById(organizerAssignDto.getUserId()).orElseThrow())"),
+            @Mapping(target = "organization", ignore = true)
+    })
+    public abstract Organizer fromAssignDto(OrganizerAssignDto organizerAssignDto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = IGNORE)
     public abstract Organizer merge(@MappingTarget Organizer target, Organizer source);

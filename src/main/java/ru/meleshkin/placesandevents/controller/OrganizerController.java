@@ -27,7 +27,7 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
  */
 
 
-@Tag(name = "Organizer", description = "Controller for assigning users to make them organizers of a organization")
+@Tag(name = "Organizer", description = "CRUD controller for Organizers. For testing and admin functions only")
 @ApiResponse(responseCode = "500", description = "Internal error")
 @ApiResponse(responseCode = "400", description = "Validation failed")
 @RestController
@@ -40,12 +40,11 @@ public class OrganizerController {
 
     /**
      * Assigns a user to an organization, and gives role to one
-     * Made for users who will have some control over organization profile
+     * Made for administration and debug purposes
      *
      * @param organizerCreateDto data for creating user record
      * @return Data of a user in JSON format
      */
-    // TODO: 25.01.2022 Rename for a assign user for an organization
     @Operation(description = "Create organizer")
     @ApiResponse(responseCode = "200", description = "Organizer created")
     @PostMapping

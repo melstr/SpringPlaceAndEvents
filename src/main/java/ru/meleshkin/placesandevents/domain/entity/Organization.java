@@ -5,7 +5,9 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 /**
  * @author Meleshkin Alexandr
@@ -22,5 +24,8 @@ public class Organization extends AuditableEntity{
 
     @Column(name = "description")
     private String description;
+
+    @OneToMany(mappedBy = "organization")
+    private List<Organizer> organizers;
 
 }
