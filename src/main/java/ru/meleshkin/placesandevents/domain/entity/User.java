@@ -6,6 +6,11 @@ import ru.meleshkin.placesandevents.domain.enums.UserType;
 
 import javax.persistence.*;
 
+import java.util.List;
+import java.util.Set;
+
+import static javax.persistence.FetchType.LAZY;
+
 /**
  * Entity of a user data
  *
@@ -36,5 +41,11 @@ public class User extends BaseEntity{
 
     @Column(name = "email")
     String email;
+
+
+    @OneToMany(mappedBy = "user",
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    List<Organizer> organizerPositions;
 
 }

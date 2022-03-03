@@ -4,14 +4,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import ru.meleshkin.placesandevents.domain.entity.Event;
-import ru.meleshkin.placesandevents.domain.entity.Organization;
 
 import java.util.UUID;
 
 /**
  * @author Meleshkin Alexandr
- * @since 23.01.2022
+ * @since 03.03.2022
  */
-public interface OrganizationRepository extends JpaRepository<Organization, UUID> {
-    Page<Organization> findAll(Pageable pageable);
+public interface EventRepository extends JpaRepository<Event, UUID> {
+    Page<Event> findAllByOrganizationId(UUID organizationId, Pageable pageable);
 }

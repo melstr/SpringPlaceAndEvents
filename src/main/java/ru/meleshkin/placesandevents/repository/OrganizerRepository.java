@@ -1,9 +1,10 @@
 package ru.meleshkin.placesandevents.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import ru.meleshkin.placesandevents.domain.entity.Organizer;
 
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -12,7 +13,7 @@ import java.util.UUID;
  */
 public interface OrganizerRepository extends JpaRepository<Organizer, UUID> {
 
-    List<Organizer> findAllByOrganizationId(UUID organizationId);
+    Page<Organizer> findAllByOrganizationId(UUID organizationId, Pageable pageable);
 
     Organizer findByOrganizationIdAndUserId (UUID organizationId, UUID userId);
 }

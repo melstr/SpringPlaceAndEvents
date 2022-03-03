@@ -1,5 +1,7 @@
 package ru.meleshkin.placesandevents.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import ru.meleshkin.placesandevents.domain.dto.OrganizerAssignDto;
 import ru.meleshkin.placesandevents.domain.entity.Organizer;
 
@@ -24,7 +26,7 @@ public interface OrganizerService {
 
     Organizer getByOrganizationIdAndUserId(UUID organizationId, UUID userId);
 
-    List<Organizer> getAllByOrganizationId(UUID organizationId);
+    Page<Organizer> getAllByOrganizationId(UUID organizationId, Pageable pageable);
 
     Organizer assignOrUpdateOrganizer(UUID organizationId, OrganizerAssignDto organizerAssignDto);
 

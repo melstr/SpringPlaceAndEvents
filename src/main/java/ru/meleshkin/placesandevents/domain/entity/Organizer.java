@@ -22,11 +22,11 @@ import static javax.persistence.FetchType.LAZY;
 @Table(name = "organizers")
 public class Organizer extends BaseEntity {
 
-    @ManyToOne(fetch = LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
     User user;
 
-    @ManyToOne(fetch = LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "organization_id")
     Organization organization;
 
@@ -34,5 +34,8 @@ public class Organizer extends BaseEntity {
     @Column(name = "role")
     OrganizerRole role;
 
-
+    @OneToMany(mappedBy = "organizer",
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    List<Event> events;
 }

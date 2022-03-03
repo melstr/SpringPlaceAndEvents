@@ -1,6 +1,8 @@
 package ru.meleshkin.placesandevents.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.meleshkin.placesandevents.domain.dto.OrganizerAssignDto;
@@ -20,6 +22,7 @@ import java.util.UUID;
  */
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class OrganizerServiceImpl implements OrganizerService {
 
     private final OrganizerRepository organizerRepository;
@@ -29,35 +32,28 @@ public class OrganizerServiceImpl implements OrganizerService {
     @Transactional
     @Override
     public Organizer create(Organizer organizer) {
-
         return organizerRepository.save(organizer);
     }
 
     @Transactional
     @Override
     public void delete(UUID id) {
-
         organizerRepository.delete(get(id));
     }
 
-    @Transactional
     @Override
     public List<Organizer> getAll() {
-
         return organizerRepository.findAll();
     }
 
-    @Transactional
     @Override
     public Organizer get(UUID id) {
-
         return organizerRepository.findById(id).orElseThrow();
     }
 
     @Transactional
     @Override
     public Organizer update(UUID id, Organizer organizer) {
-
         final Organizer current = get(id);
         final Organizer toUpdate = organizerMapper.merge(current, organizer);
         return organizerRepository.save(toUpdate);
@@ -66,25 +62,22 @@ public class OrganizerServiceImpl implements OrganizerService {
     @Transactional
     @Override
     public Organizer getByOrganizationIdAndUserId(UUID organizationId, UUID userId) {
-
         return organizerRepository.findByOrganizationIdAndUserId(organizationId, userId);
     }
 
     @Transactional
     @Override
-    public List<Organizer> getAllByOrganizationId(UUID organizationId) {
-
-        return organizerRepository.findAllByOrganizationId(organizationId);
+    public Page<Organizer> getAllByOrganizationId(UUID organizationId, Pageable pageable) {
+        return organizerRepository.findAllByOrganizationId(organizationId, pageable);
     }
 
     /**
      * Updates or creates a role for user, to have permission to control organization
      *
-     * @param organizationId id of an organization
+     * @param organizationId     id of an organization
      * @param organizerAssignDto basically DTO with {@code userId} and {@code role}
      * @return Organizer entity
      */
-    // TODO: 26.01.2022 Переделать как-нибудь. Какой-то говнокод. Добавить исключения.
     @Transactional
     @Override
     public Organizer assignOrUpdateOrganizer(UUID organizationId, OrganizerAssignDto organizerAssignDto) {
@@ -93,10 +86,10 @@ public class OrganizerServiceImpl implements OrganizerService {
 
         Optional<Organizer> current = Optional
                 .ofNullable(organizerRepository.findByOrganizationIdAndUserId(organizationId, organizerAssignDto.getUserId()));
-        if(current.isPresent()){
+        if (current.isPresent()) {
             Organizer toUpdate = organizerMapper.merge(current.get(), source);
             return organizerRepository.save(toUpdate);
-        }else {
+        } else {
             source.setOrganization(organizationRepository.getById(organizationId));
             return organizerRepository.save(source);
         }

@@ -1,16 +1,17 @@
 spring:
   datasource:
-    url: 'jdbc:postgresql://localhost:5432/places_and_events1'
+    url: 'jdbc:postgresql://localhost:5432/places_and_events_3'
     username: postgres
     password: password
   jpa:
     show-sql: 'true'
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
   jackson:
     time-zone: UTC
   liquibase:
     change-log: classpath:db/changelog/changelog.xml
+    enabled: false
 server:
   error:
     include-message: always

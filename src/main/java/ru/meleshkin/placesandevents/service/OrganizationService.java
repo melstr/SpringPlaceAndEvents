@@ -1,5 +1,7 @@
 package ru.meleshkin.placesandevents.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import ru.meleshkin.placesandevents.domain.entity.Organization;
 import ru.meleshkin.placesandevents.domain.entity.Organizer;
 
@@ -12,14 +14,14 @@ import java.util.UUID;
  */
 public interface OrganizationService {
 
-    public Organization create(Organization organization);
+    Organization create(Organization organization);
 
-    public Organization update(UUID id, Organization organization);
+    Organization update(UUID id, Organization organization);
 
-    public Organization get(UUID id);
+    Organization get(UUID id);
 
-    public void delete(UUID id);
+    void delete(UUID id);
 
-    public List<Organization> getAllOrganizations();
+    Page<Organization> getAllOrganizations(Pageable pageable);
 
 }

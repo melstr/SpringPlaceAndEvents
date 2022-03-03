@@ -1,6 +1,8 @@
 package ru.meleshkin.placesandevents.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.meleshkin.placesandevents.domain.entity.User;
@@ -19,36 +21,31 @@ import java.util.UUID;
  */
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class UserServiceImpl implements UserService {
 
-    final private UserRepository userRepository;
-    final private UserMapper userMapper;
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
-    @Transactional
     @Override
     public User get(UUID id) {
-
         return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
 
-    @Transactional
     @Override
-    public List<User> getAll() {
-
-        return new ArrayList<>(userRepository.findAll());
+    public Page<User> getAll(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 
     @Transactional
     @Override
     public User create(User user) {
-
         return userRepository.save(user);
     }
 
     @Transactional
     @Override
     public User update(UUID id, User user) {
-
         final User current = get(id);
         final User toUpdate = userMapper.merge(current, user);
         return userRepository.save(toUpdate);
@@ -57,7 +54,6 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void delete(UUID id) {
-
         userRepository.delete(get(id));
     }
 }

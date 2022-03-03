@@ -1,8 +1,9 @@
 package ru.meleshkin.placesandevents.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import ru.meleshkin.placesandevents.domain.entity.User;
 
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -12,7 +13,7 @@ import java.util.UUID;
 public interface UserService {
     User get(UUID id);
 
-    List<User> getAll();
+    Page<User> getAll(Pageable pageable);
 
     User create(User user);
 

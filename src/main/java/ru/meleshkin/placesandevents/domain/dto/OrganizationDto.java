@@ -19,12 +19,10 @@ import static lombok.AccessLevel.PUBLIC;
 @Jacksonized
 @AllArgsConstructor(access = PUBLIC)
 public class OrganizationDto {
-
     private UUID id;
     private Integer version;
     private Date createdAt;
     private Date modifiedAt;
     private String name;
     private String description;
-
 }

@@ -3,8 +3,14 @@ package ru.meleshkin.placesandevents.domain.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -19,21 +25,19 @@ import java.util.Date;
 @MappedSuperclass
 public abstract class AuditableEntity extends BaseEntity{
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at")
-    private Date createdAt;
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP")
+    private LocalDateTime createdAt;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "modified_at")
-    private Date modifiedAt;
+    @Column(name = "modified_at", columnDefinition = "TIMESTAMP")
+    private LocalDateTime modifiedAt;
 
     @PrePersist
     public void onPrePersist() {
-        setCreatedAt((new Date()));
+        setCreatedAt(LocalDateTime.now());
     }
 
     @PreUpdate
     public void onPreUpdate() {
-        setModifiedAt((new Date()));
+        setModifiedAt(LocalDateTime.now());
     }
 }

@@ -17,6 +17,7 @@ public interface OrganizationMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "modifiedAt", ignore = true)
     @Mapping(target = "organizers", ignore = true)
+    @Mapping(target = "events", ignore = true)
     Organization fromCreateDto(OrganizationCreateDto organizationCreateDto);
 
     OrganizationCreateDto toCreateDto(Organization organization);
@@ -26,5 +27,6 @@ public interface OrganizationMapper {
     List<OrganizationDto> toListDto(List<Organization> organizations);
 
     @BeanMapping(nullValuePropertyMappingStrategy = IGNORE)
+    @Mapping(target = "organizers", ignore = true)
     Organization merge(@MappingTarget Organization target, Organization source);
 }

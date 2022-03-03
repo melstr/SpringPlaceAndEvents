@@ -6,7 +6,7 @@
                 <constraints nullable="false" primaryKey="true" primaryKeyName="users_pkey1"/>
             </column>
             <column name="version" type="INTEGER"/>
-            <column name="login" type="VARCHAR(255)"/>
+            <column name="count" type="bigint"/>
             <column name="password" type="VARCHAR(255)"/>
             <column name="name" type="VARCHAR(255)"/>
             <column name="type" type="VARCHAR(255)"/>

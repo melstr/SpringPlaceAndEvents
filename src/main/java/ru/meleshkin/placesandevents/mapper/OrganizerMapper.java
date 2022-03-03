@@ -32,30 +32,15 @@ public abstract class OrganizerMapper {
     @Autowired
     protected OrganizationRepository organizationMapper;
 
-    @Mappings({
-            @Mapping(target = "user", expression = "java(userRepository.findById(organizerCreateDto.getUserId()).orElseThrow())"),
-            @Mapping(target = "organization", expression = "java(organizationRepository.findById(organizerCreateDto.getOrganizationId()).orElseThrow())")
-    })
-    public abstract Organizer fromCreateDto(OrganizerCreateDto organizerCreateDto);
-
-    @Mappings({
-            @Mapping(target = "userId", expression = "java(organizer.getUser().getId())"),
-            @Mapping(target = "organizationId", expression = "java(organizer.getOrganization().getId())")
-    })
-    public abstract OrganizerCreateDto toCreateDto(Organizer organizer);
-
-    @Mappings({
-            @Mapping(target = "userId", expression = "java(organizer.getUser().getId())"),
-            @Mapping(target = "organizationId", expression = "java(organizer.getOrganization().getId())")
-    })
+    @Mapping(target = "userId", expression = "java(organizer.getUser().getId())")
+    @Mapping(target = "organizationId", expression = "java(organizer.getOrganization().getId())")
     public abstract OrganizerDto toDto(Organizer organizer);
 
     public abstract List<OrganizerDto> toDtoList(List<Organizer> organizers);
 
-    @Mappings({
-            @Mapping(target = "user", expression = "java(userRepository.findById(organizerAssignDto.getUserId()).orElseThrow())"),
-            @Mapping(target = "organization", ignore = true)
-    })
+    @Mapping(target = "user", expression = "java(userRepository.findById(organizerAssignDto.getUserId()).orElseThrow())")
+    @Mapping(target = "organization", ignore = true)
+    @Mapping(target = "events", ignore = true)
     public abstract Organizer fromAssignDto(OrganizerAssignDto organizerAssignDto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = IGNORE)

@@ -4,7 +4,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 import ru.meleshkin.placesandevents.domain.dto.UserCreateDto;
 import ru.meleshkin.placesandevents.domain.dto.UserDto;
@@ -26,7 +27,7 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path ="users")
+@RequestMapping(path = "users")
 @Tag(name = "User", description = "Controller for operations with users' records")
 @ApiResponse(responseCode = "500", description = "Internal error")
 @ApiResponse(responseCode = "400", description = "Validation failed")
@@ -44,12 +45,11 @@ public class UserController {
     @Operation(description = "Create user")
     @ApiResponse(responseCode = "200", description = "User created")
     @PostMapping
-    public ResponseEntity<UserDto> create(@Valid @RequestBody UserCreateDto userCreateDto){
+    public UserDto create(@Valid @RequestBody UserCreateDto userCreateDto) {
         return Optional.ofNullable(userCreateDto)
                 .map(userMapper::fromDto)
                 .map(userService::create)
                 .map(userMapper::toDto)
-                .map(ResponseEntity::ok)
                 .orElseThrow();
     }
 
@@ -63,11 +63,10 @@ public class UserController {
     @ApiResponse(responseCode = "200", description = "User found")
     @ApiResponse(responseCode = "404", description = "User not found")
     @GetMapping("/{userId}")
-    public ResponseEntity<UserDto> get(@Valid @PathVariable UUID userId) {
+    public UserDto get(@Valid @PathVariable UUID userId) {
         return Optional.ofNullable(userId)
                 .map(userService::get)
                 .map(userMapper::toDto)
-                .map(ResponseEntity::ok)
                 .orElseThrow();
     }
 
@@ -79,10 +78,12 @@ public class UserController {
     @Operation(description = "Find all users")
     @ApiResponse(responseCode = "200", description = "Users found")
     @GetMapping
-    public ResponseEntity<List<UserDto>> getAll(){
-        return Optional.of(userService.getAll())
-                .map(userMapper::toDtoList)
-                .map(ResponseEntity::ok)
+    public Page<UserDto> getAll(@RequestParam("page") Integer page,
+                                @RequestParam("size") Integer size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return Optional.of(pageRequest)
+                .map(userService::getAll)
+                .map(it -> it.map(userMapper::toDto))
                 .orElseThrow();
     }
 
@@ -95,8 +96,7 @@ public class UserController {
     @ApiResponse(responseCode = "204", description = "User removed")
     @DeleteMapping
     @ResponseStatus(value = NO_CONTENT)
-    public void delete(@RequestBody UUID id){
-
+    public void delete(@RequestBody UUID id) {
         userService.delete(id);
     }
 
@@ -109,12 +109,11 @@ public class UserController {
     @Operation(description = "Update user")
     @ApiResponse(responseCode = "200", description = "User updated")
     @PatchMapping("/{userId}")
-    public ResponseEntity<UserDto> update(@PathVariable(name = "userId") UUID userId, @RequestBody UserCreateDto userCreateDto){
+    public UserDto update(@PathVariable(name = "userId") UUID userId, @RequestBody UserCreateDto userCreateDto) {
         return Optional.ofNullable(userCreateDto)
                 .map(userMapper::fromDto)
                 .map(user -> userService.update(userId, user))
                 .map(userMapper::toDto)
-                .map(ResponseEntity::ok)
                 .orElseThrow();
     }
 }

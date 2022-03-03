@@ -2,6 +2,7 @@ package ru.meleshkin.placesandevents.mapper;
 
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import ru.meleshkin.placesandevents.domain.dto.UserCreateDto;
 import ru.meleshkin.placesandevents.domain.dto.UserDto;
@@ -14,12 +15,11 @@ import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
 @Mapper
 public interface UserMapper {
 
+    @Mapping(target = "organizerPositions", ignore = true)
     User fromDto(UserCreateDto source);
 
-    User fromDto(UserDto source);
     UserDto toDto(User source);
 
-    List<User> fromDtoList(List<UserDto> source);
     List<UserDto> toDtoList(List<User> source);
 
     @BeanMapping(nullValuePropertyMappingStrategy = IGNORE)

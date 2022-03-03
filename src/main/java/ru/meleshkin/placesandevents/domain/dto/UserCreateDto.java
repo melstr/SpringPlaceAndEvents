@@ -28,23 +28,18 @@ public class UserCreateDto {
     @Schema(description = "User's login")
     @NotNull
     private String login;
-
     @Schema(description = "User's password")
     @NotNull
     private String password;
-
     @Schema(description = "User's name")
     private String name;
-
     @NotNull
     @Schema(description = "User's type")
     private UserType type;
-
     @Min(value = 0)
     @Max(value = 120)
     @Schema(description = "User's age")
     private Integer age;
-
     @Email
     @Schema(description = "User's email")
     String email;
