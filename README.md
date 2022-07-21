@@ -1,5 +1,11 @@
 # SpringPlaceAndEvents
-## Project for Java Spring course in Orion Innovation.
+One of the projects when i've only started learning java-backend stack
 
-REST API that allows organizers to represent their organization and notify everybody about their future events. 
+REST API You can do store for organizations and organizers 
 
+### Technological stack
+- **Spring Boot**
+- **Postgresql, Liquibase**
+- **MapStruct**
+- **OpenAPI (Swagger), JavaDoc** 
+- **Maven**
